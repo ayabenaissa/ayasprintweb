@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Publication</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idpublication</th>
+                <td>{{ publication.idPublication }}</td>
+            </tr>
+            <tr>
+                <th>Likes</th>
+                <td>{{ publication.likes }}</td>
+            </tr>
+            <tr>
+                <th>Contenustatut</th>
+                <td>{{ publication.contenuStatut }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ publication.image }}</td>
+            </tr>
+            <tr>
+                <th>Video</th>
+                <td>{{ publication.video }}</td>
+            </tr>
+            <tr>
+                <th>Datepub</th>
+                <td>{% if publication.datePub %}{{ publication.datePub|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dislike</th>
+                <td>{{ publication.dislike }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('publications_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('publications_edit', { 'id': publication.idPublication }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'FamilyBookBundle:Default:Layout.html.twig' %}
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+
+            <!-- Newsfeed Common Side Bar Left
+            ================================================= -->
+            <div class="col-md-3 static">
+                <div class="profile-card">
+                    <img src="{{ asset('front/images/users/user-1.jpg') }}" alt="user" class="profile-photo" />
+                    <h5><a href="{{ path('profil_new') }}" class="text-white">Sarah Cruiz</a></h5>
+                    <a href="#" class="text-white"><i class="ion ion-android-person-add"></i> 1,299 followers</a>
+                </div><!--profile card ends-->
+                <ul class="nav-news-feed">
+                    <li><i class="icon ion-ios-paper"></i><div><a href="{{ path('profil_new') }}">Profil</a></div></li>
+                    <li><i class="icon ion-ios-people"></i><div><a href="#">Rechercher proches</a></div></li>
+                    <li><i class="icon ion-ios-people-outline"></i><div><a href="#">Proches</a></div></li>
+                    <li><i class="icon ion-chatboxes"></i><div><a href="#">Messages</a></div></li>
+                    <li><i class="icon ion-images"></i><div><a href="#">Images</a></div></li>
+                    <li><i class="icon ion-ios-videocam"></i><div><a href="#">Videos</a></div></li>
+                </ul><!--news-feed links ends-->
+                <div id="chat-block">
+                    <div class="title">Chat online</div>
+                    <ul class="online-users list-inline">
+                        {#<li><a href="{{ path('newsfeed-messages.html' )}}" title="Linda Lohan"><img src="{{ asset('images/users/user-2.jpg') }}" alt="user" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>#}
+                        {#<li><a href="{{ path('newsfeed-messages.html') }}" title="Sophia Lee"><img src="{{ asset('images/users/user-3.jpg') }}" alt="user" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>#}
+                        {#<li><a href="{{ path('newsfeed-messages.html' )}}" title="John Doe"><img src="{{ asset('images/users/user-4.jpg') }}" alt="user" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>#}
+                        {#<li><a href="{{path( 'newsfeed-messages.html' )}}" title="Alexis Clark"><img src="{{ asset('images/users/user-5.jpg') }}" alt="user" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>#}
+                        {#<li><a href="{{path( 'newsfeed-messages.html') }}" title="James Carter"><img src="{{ asset('images/users/user-6.jpg') }}" alt="user" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>#}
+                        {#<li><a href="{{ path('newsfeed-messages.html' )}}" title="Robert Cook"><img src="{{ asset('images/users/user-7.jpg') }}" alt="user" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>#}
+                        {#<li><a href="{{ path('newsfeed-messages.html') }}" title="Richard Bell"><img src="{{ asset('images/users/user-8.jpg') }}" alt="user" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>#}
+                        {#<li><a href="{{ path('newsfeed-messages.html' )}}" title="Anna Young"><img src="{{ asset('images/users/user-9.jpg') }}" alt="user" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>#}
+                        {#<li><a href="{{ path'newsfeed-messages.html' )}}" title="Julia Cox"><img src="{{ asset('images/users/user-10.jpg') }}" alt="user" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>#}
+                    </ul>
+                </div><!--chat block ends-->
+            </div>
+            <div class="col-md-7">
+
+                <!-- Post Create Box
+                ================================================= -->
+                <div class="create-post">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-7">
+                            <div class="form-group">
+                                <img src="{{ asset('front/images/users/user-1.jpg') }}" alt="" class="profile-photo-md">
+                                {{ form_start(form) }}
+                                {{ form_widget(form.contenuStatut) }}<br>
+                                {{ form_widget(form.video) }}<br>
+                                {{ form_widget(form.image) }}<br>
+
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5">
+                            {{ form_widget(form.Publier) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+
+                </div><!-- Post Create Box End-->
+
+                <!-- Post Content
+                ================================================= -->
+                {% for pub in publications %}
+                <div class="post-content">
+
+                        {% if pub.video %}
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ pub.video }}" frameborder="0" allowfullscreen></iframe>
+
+                            {% else %}
+                                <img src="data:image/png;base64,{{ pub.image }}" alt="post-image" class="img-responsive post-image" />
+                            {% endif %}
+                    <div class="post-container">
+                        <img src="{{ asset('front/images/users/user-5.jpg') }}" alt="user" class="profile-photo-md pull-left" />
+                        <div class="post-detail">
+                            {{ pub.contenuStatut }}
+                            <div class="user-info">
+                                {#<h5><a href="{{ path('family_timeline' )}}" class="profile-link">Alexis Clark</a> <span class="following">following</span></h5>#}
+                                <p class="text-muted">Published at {{ pub.datePub | date }}</p>
+                            </div>
+                            <div class="reaction">
+                                <a class="btn text-green"><i class="icon ion-thumbsup"></i> {{ pub.likes }} </a>
+                                <a class="btn text-red"><i class="fa fa-thumbs-down"></i> {{ pub.likes }} </a>
+                            </div>
+                            <div class="line-divider"></div>
+                            <div class="post-text">
+                                <p></p>
+                            </div>
+                            <div class="line-divider"></div>
+                            <div class="post-comment">
+                                <img src="{{ asset('front/images/users/user-11.jpg') }}" alt="" class="profile-photo-sm" />
+                                {#<p><a href="{{ path('family_timeline') }}" class="profile-link">Diana </a><i class="em em-laughing"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>#}
+                            </div>
+                            <div class="post-comment">
+                                <img src="{{ asset('front/images/users/user-4.jpg') }}" alt="" class="profile-photo-sm" />
+                                {#<p><a href="{{ path('family_timeline')}}" class="profile-link">John</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>#}
+                            </div>
+                            <div class="post-comment">
+                                <img src="{{ asset('front/images/users/user-1.jpg') }}" alt="" class="profile-photo-sm" />
+                                <input type="text" class="form-control" placeholder="Post a comment">
+                            </div>
+                            <div>
+                                <a href="{{ path('publications_new',{'delete':pub.idPublication}) }}" style="padding: 10px"><input type="button" value="Supprimer" class="btn btn-primary pull-right"></a>
+                                <a href="{{ path('publications_edit', { 'id': pub.idPublication }) }}" style="padding: 10px" ><input type="button" value="Modifier" class="btn btn-primary pull-right"></a>
+                                {#{% if app.user == pub.idProche %}#}
+                                {#{{ form_start(delete_form) }}#}
+                                {#<input type="submit" value="Delete" class="btn btn-primary pull-right">#}
+                                {#{{ form_end(delete_form) }}#}
+                                    {#{% endif %}#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {% endfor %}
+                <!-- Post Content
+                ================================================= -->
+                </div>
+                    </div>
+                </div>
+
+{% endblock %}
