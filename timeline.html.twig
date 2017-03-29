@@ -1,0 +1,144 @@
+{% extends 'FamilyBookBundle:Default:Layout.html.twig' %}
+{% block container %}
+
+<div class="container">
+
+    <!-- Timeline
+    ================================================= -->
+    <div class="timeline">
+        <div class="timeline-cover">
+
+            <!--Timeline Menu for Large Screens-->
+            <div class="timeline-nav-bar hidden-sm hidden-xs">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="profile-info">
+                            <img src="{{ asset('front/images/users/user-1.jpg') }}" alt="" class="img-responsive profile-photo" />
+                            <h3>Sarah Cruiz</h3>
+                            <p class="text-muted">Creative Director</p>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <ul class="list-inline profile-menu">
+                            <li><a href="{{ path('profil_new') }}" class="active">Profil</a></li>
+                            <li><a href="#">A propos</a></li>
+                            <li><a href="#">Album</a></li>
+                            <li><a href="#">Proches</a></li>
+                        </ul>
+                        <ul class="follow-me list-inline">
+                            <li>1,299 people following her</li>
+                            <li><button class="btn-primary">Ajouter proche</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!--Timeline Menu for Large Screens End-->
+
+            <!--Timeline Menu for Small Screens-->
+            <div class="navbar-mobile hidden-lg hidden-md">
+                <div class="profile-info">
+                    <img src="{{ asset('front/images/users/user-1.jpg') }}" alt="" class="img-responsive profile-photo" />
+                    <h4>Sarah Cruiz</h4>
+                    <p class="text-muted">Creative Director</p>
+                </div>
+                <div class="mobile-menu">
+                    <ul class="list-inline">
+                        <li><a href="{{ path('profil_new') }}" class="active">Profil</a></li>
+                        <li><a href="#">A propos</a></li>
+                        <li><a href="#">Album</a></li>
+                        <li><a href="#">Proches</a></li>
+                    </ul>
+                    <button class="btn-primary">Ajouter proche</button>
+                </div>
+            </div><!--Timeline Menu for Small Screens End-->
+
+        </div>
+        <div id="page-contents">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-7">
+
+                    <!-- Post Create Box
+                    ================================================= -->
+                    <div class="create-post">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-7">
+                                <div class="form-group">
+                                    <img src="{{ asset('front/images/users/user-1.jpg') }}" alt="" class="profile-photo-md">
+                                    {{ form_start(form) }}
+                                    {{ form_widget(form.contenuStatut) }}<br>
+                                    {{ form_widget(form.video) }}<br>
+                                    {{ form_widget(form.image) }}<br>
+
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-5">
+                                {{ form_widget(form.Publier) }}
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+
+                    </div><!-- Post Create Box End-->
+                    <!-- Post Content
+              ================================================= -->
+                    {% for pub in publications %}
+                        <div class="post-content">
+
+                            {% if pub.video %}
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ pub.video }}" frameborder="0" allowfullscreen></iframe>
+
+                            {% else %}
+                                <img src="data:image/png;base64,{{ pub.image }}" alt="post-image" class="img-responsive post-image" />
+                            {% endif %}
+                            <div class="post-container">
+                                <img src="{{ asset('front/images/users/user-5.jpg') }}" alt="user" class="profile-photo-md pull-left" />
+                                <div class="post-detail">
+                                    {{ pub.contenuStatut }}
+                                    <div class="user-info">
+                                        {#<h5><a href="{{ path('family_timeline' )}}" class="profile-link">Alexis Clark</a> <span class="following">following</span></h5>#}
+                                        <p class="text-muted">Published a photo at {{ pub.datePub | date }}</p>
+                                    </div>
+                                    <div class="reaction">
+                                        {#<a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>#}
+                                        {#<a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>#}
+                                    </div>
+                                    <div class="line-divider"></div>
+                                    <div class="post-text">
+                                        <p></p>
+                                    </div>
+                                    <div class="line-divider"></div>
+                                    <div class="post-comment">
+                                        <img src="{{ asset('front/images/users/user-11.jpg') }}" alt="" class="profile-photo-sm" />
+                                        {#<p><a href="{{ path('family_timeline') }}" class="profile-link">Diana </a><i class="em em-laughing"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>#}
+                                    </div>
+                                    <div class="post-comment">
+                                        <img src="{{ asset('front/images/users/user-4.jpg') }}" alt="" class="profile-photo-sm" />
+                                        {#<p><a href="{{ path('family_timeline')}}" class="profile-link">John</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>#}
+                                    </div>
+                                    <div class="post-comment">
+                                        <img src="{{ asset('front/images/users/user-1.jpg') }}" alt="" class="profile-photo-sm" />
+                                        <input type="text" class="form-control" placeholder="Post a comment">
+                                    </div>
+                                    <div>
+                                        <a href="{{ path('publications_new',{'delete':pub.idPublication}) }}" style="padding: 10px"><input type="button" value="Supprimer" class="btn btn-primary pull-right"></a>
+                                        <a href="{{ path('publications_edit', { 'id': pub.idPublication }) }}" style="padding: 10px" ><input type="button" value="Modifier" class="btn btn-primary pull-right"></a>
+                                        {#{% if app.user == pub.idProche %}#}
+                                        {#{{ form_start(delete_form) }}#}
+                                        {#<input type="submit" value="Delete" class="btn btn-primary pull-right">#}
+                                        {#{{ form_end(delete_form) }}#}
+                                        {#{% endif %}#}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
